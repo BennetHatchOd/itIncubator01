@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:BennetHatchOd/itIncubator01.git",
-  "license": "MIT"
+  "license": "MIT",
+  "author": "Vladimir NG <potd3@ukr.net>"
 }
