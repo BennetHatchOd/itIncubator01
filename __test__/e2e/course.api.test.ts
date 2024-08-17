@@ -8,17 +8,7 @@ describe('/course', () => {
         await request(app)
         .get('/courses')
         .expect(200, []); 
-        
-                // await request(app)
-                //  .get('/cources') 
-                //  .get('/courses')
-                // .expect(200); 
-        
-        // await request(app)
-        // .get('/courses')
-        // .expect(200);
-        // const response = await request(app).get('/courses');
-        // expect(response.status).toBe(200);
-        // expect(response.text).toBe('Hello, World!');
+
+     
     })
 })
