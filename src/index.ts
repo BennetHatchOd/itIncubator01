@@ -1,6 +1,7 @@
 import express from 'express';
+ 
 
-const app = express();
+export const app = express();
 const port = 3000;
 const db = { courses:[ 
     {id:1, title: 'front-end'},
@@ -18,7 +19,8 @@ app.get('/courses', (req,res) => {
         foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1);
     }
     
-        res.json(foundCourses);
+    res.json(foundCourses);
+    
 })
 
 
@@ -29,9 +31,20 @@ app.get('/courses/:id', (req,res) => {
         res.sendStatus(404);
         return;
     }
-
+        res.status(200);
     res.json(foundCourse);
 })
+
+// app.post('/courses/:id', (req,res) => {
+//     const createCourse = {
+//         id: +(new Date()),
+//         title: 'uknown'
+//     }
+            
+//     db.courses.push(createCourse);
+//     res.json(createCourse);
+//     })
+
 
 app.listen(port, () => {
     console.log(`Server works on port ${port}`);
