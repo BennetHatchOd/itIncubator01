@@ -4,13 +4,19 @@
   "main": "index.js",
   "repository": "git@github.com:BennetHatchOd/itIncubator01.git",
   "license": "MIT",
-  "author": "Vladimir NG <potd3@ukr.net>",
+  "author": "Vladimir NG <potd3@ukr.net>", 
   "scripts": {
+    "test": "jest",
     "dev": "yarn nodemon --inspect dist/index.js",
     "watch": "tsc -w"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "@types/jest": "^29.5.12",
+    "@types/supertest": "^6.0.2",
+    "express": "^4.19.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
