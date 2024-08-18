@@ -7,6 +7,8 @@ exports.app = void 0;
 const express_1 = __importDefault(require("express"));
 exports.app = (0, express_1.default)();
 const port = 3000;
+const jsonBodyMiddleware = express_1.default.json();
+exports.app.use(jsonBodyMiddleware);
 const db = { courses: [
         { id: 1, title: 'front-end' },
         { id: 2, title: 'back-end' },
@@ -30,14 +32,20 @@ exports.app.get('/courses/:id', (req, res) => {
     res.status(200);
     res.json(foundCourse);
 });
-// app.post('/courses/:id', (req,res) => {
-//     const createCourse = {
-//         id: +(new Date()),
-//         title: 'uknown'
-//     }
-//     db.courses.push(createCourse);
-//     res.json(createCourse);
-//     })
+exports.app.post('/courses/:id', (req, res) => {
+    if (!req.body.title) {
+        res.sendStatus(400);
+        return;
+    }
+    const createCourse = {
+        id: +(new Date()),
+        title: 'uknown'
+    };
+    db.courses.push(createCourse);
+    res
+        .status(201)
+        .json(createCourse);
+});
 exports.app.listen(port, () => {
     console.log(`Server works on port ${port}`);
 });
