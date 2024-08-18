@@ -65,6 +65,23 @@ app.delete('/courses/:id', (req,res) => { //   courses/:id [DELETE]
     res.sendStatus(204);
 })
 
+app.put('/courses/:id', (req,res) => { //   courses/:id [PUT]
+    const foundCourse = db.courses.find(c => c.id === +req.params.id)
+    
+    if(!foundCourse) {
+        res.sendStatus(404);
+        return;
+    }
+    if(!req.body.title){
+        res.sendStatus(404);
+        return;
+    }
+
+    foundCourse.title = req.body.title;
+
+    res.status(204);
+})
+
 app.listen(port, () => {
     console.log(`Server works on port ${port}`);
 })

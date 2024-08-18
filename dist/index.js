@@ -55,6 +55,19 @@ exports.app.delete('/courses/:id', (req, res) => {
     }
     res.sendStatus(204);
 });
+exports.app.put('/courses/:id', (req, res) => {
+    const foundCourse = db.courses.find(c => c.id === +req.params.id);
+    if (!foundCourse) {
+        res.sendStatus(404);
+        return;
+    }
+    if (!req.body.title) {
+        res.sendStatus(404);
+        return;
+    }
+    foundCourse.title = req.body.title;
+    res.status(204);
+});
 exports.app.listen(port, () => {
     console.log(`Server works on port ${port}`);
 });
