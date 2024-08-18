@@ -46,7 +46,7 @@ exports.app.post('/courses/:id', (req, res) => {
     }
     const createCourse = {
         id: +(new Date()),
-        title: 'unknown'
+        title: req.body.title
     };
     db.courses.push(createCourse);
     res

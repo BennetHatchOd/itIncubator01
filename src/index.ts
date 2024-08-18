@@ -46,14 +46,14 @@ app.get('/courses/:id', (req,res) => { //   courses/:id [GET]
     res.json(foundCourse);
 })
 
-app.post('/courses/:id', (req,res) => {  //   courses [POST]
+app.post('/courses/:id', (req,res) => {  //   courses/:id [POST]
     if(!req.body.title){
         res.sendStatus(HTTP_STATUSES.BAD_REQUEST_400);
         return;
     }
     const createCourse = {
         id: +(new Date()),
-        title: 'unknown'
+        title: req.body.title
     };
             
     db.courses.push(createCourse);
