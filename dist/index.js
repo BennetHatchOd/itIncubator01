@@ -16,6 +16,13 @@ const db = { courses: [
         { id: 4, title: 'devops' },
     ]
 };
+const HTTP_STATUSES = {
+    OK_200: 200,
+    CREATED_201: 201,
+    NO_CONTENT_204: 204,
+    BAD_REQUEST_400: 400,
+    NOT_FOUND_404: 404
+};
 exports.app.get('/courses', (req, res) => {
     let foundCourses = db.courses;
     if (req.query.title) {
@@ -26,47 +33,47 @@ exports.app.get('/courses', (req, res) => {
 exports.app.get('/courses/:id', (req, res) => {
     const foundCourse = db.courses.find(c => c.id === +req.params.id);
     if (!foundCourse) {
-        res.sendStatus(404);
+        res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
         return;
     }
-    res.status(200);
+    res.status(HTTP_STATUSES.OK_200);
     res.json(foundCourse);
 });
 exports.app.post('/courses/:id', (req, res) => {
     if (!req.body.title) {
-        res.sendStatus(400);
+        res.sendStatus(HTTP_STATUSES.BAD_REQUEST_400);
         return;
     }
     const createCourse = {
         id: +(new Date()),
-        title: 'uknown'
+        title: 'unknown'
     };
     db.courses.push(createCourse);
     res
-        .status(201)
+        .status(HTTP_STATUSES.CREATED_201)
         .json(createCourse);
 });
 exports.app.delete('/courses/:id', (req, res) => {
     const foundCourse = db.courses.find(c => c.id === +req.params.id);
     db.courses = db.courses.filter(c => c.id !== +req.params.id);
     if (!foundCourse) {
-        res.sendStatus(404);
+        res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
         return;
     }
-    res.sendStatus(204);
+    res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
 });
 exports.app.put('/courses/:id', (req, res) => {
     const foundCourse = db.courses.find(c => c.id === +req.params.id);
     if (!foundCourse) {
-        res.sendStatus(404);
+        res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
         return;
     }
     if (!req.body.title) {
-        res.sendStatus(404);
+        res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
         return;
     }
     foundCourse.title = req.body.title;
-    res.status(204);
+    res.status(HTTP_STATUSES.NO_CONTENT_204);
 });
 exports.app.listen(port, () => {
     console.log(`Server works on port ${port}`);
