@@ -46,6 +46,15 @@ exports.app.post('/courses/:id', (req, res) => {
         .status(201)
         .json(createCourse);
 });
+exports.app.delete('/courses/:id', (req, res) => {
+    const foundCourse = db.courses.find(c => c.id === +req.params.id);
+    db.courses = db.courses.filter(c => c.id !== +req.params.id);
+    if (!foundCourse) {
+        res.sendStatus(404);
+        return;
+    }
+    res.sendStatus(204);
+});
 exports.app.listen(port, () => {
     console.log(`Server works on port ${port}`);
 });

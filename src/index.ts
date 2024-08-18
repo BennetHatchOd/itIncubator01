@@ -38,7 +38,7 @@ app.get('/courses/:id', (req,res) => { //   courses/:id [GET]
     res.json(foundCourse);
 })
 
-app.post('/courses/:id', (req,res) => {
+app.post('/courses/:id', (req,res) => {  //   courses [POST]
     if(!req.body.title){
         res.sendStatus(400);
         return;
@@ -54,6 +54,16 @@ app.post('/courses/:id', (req,res) => {
         .json(createCourse);
 })
 
+app.delete('/courses/:id', (req,res) => { //   courses/:id [DELETE]
+    const foundCourse = db.courses.find(c => c.id === +req.params.id);
+    db.courses = db.courses.filter(c => c.id !== +req.params.id);
+    
+    if(!foundCourse) {
+        res.sendStatus(404);
+        return;
+    }
+    res.sendStatus(204);
+})
 
 app.listen(port, () => {
     console.log(`Server works on port ${port}`);
